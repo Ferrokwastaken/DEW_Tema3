@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yuju, más ejemplos</title>
+</head>
+<body>
+  <h1>Modificar estilo</h1>
+  <button onclick="changeRed()">Color Rojo</button>
+  <button onclick="changeYellow()">Color Amarillos</button>
+  <button id="activeButton" onclick="toggleStatus(this)">Activo</button>
+  <script>
+    const title = document.querySelector('h1');
+
+    function changeRed(params) {
+      title.setAttribute("style", "color: red");
+    }
+
+    function changeYellow(params) {
+      title.setAttribute("style", "background-color: yellow");
+    }
+
+    function toggleStatus(button) {
+      button.setAttribute("disabled", "");
+    }
+  </script>
+</body>
+</html>

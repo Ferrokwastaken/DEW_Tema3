@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista 2 electric boogalo</title>
+  <style>
+    .item {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <ul>
+    <li class="item">Manzanas</li>
+    <li>Peras</li>
+    <li>Naranjas</li>
+    <li>Sandía</li>
+    <li>Kiwi</li>
+    <li>Plátano</li>
+  </ul>
+  <p>
+    <input type="text" id="newFruit">
+    <button onclick="appendFruit()">Agregar al final</button>
+    <button onclick="prepentFruit()">Agregar al principio</button>
+  </p>
+  <script>
+    const fruitList = document.querySelector('ul')
+    console.log("Nodos: ", fruitList.childNodes)
+    console.log("Elementos: ", fruitList.children)
+
+    const inputNewFruit = document.querySelector('#newFruit')
+
+    function appendFruit () {
+      const newLi = document.createElement('li')
+      newLi.textContent = inputNewFruit.value
+      fruitList.append(newLi)
+    }
+
+    function prepentFruit () {
+      const newLi = document.createElement('li')
+      newLi.textContent = inputNewFruit.value
+      fruitList.prepend(newLi)
+    }
+  </script>
+</body>
+</html>

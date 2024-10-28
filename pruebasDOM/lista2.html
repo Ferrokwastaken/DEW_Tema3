@@ -7,6 +7,11 @@
   <style>
     .item {
       color: red;
+      font-weight: bold;
+    }
+
+    .selected {
+      background-color: gold;
     }
   </style>
 </head>
@@ -16,13 +21,14 @@
     <li>Peras</li>
     <li>Naranjas</li>
     <li>Sandía</li>
-    <li>Kiwi</li>
+    <li ondblclick="this.remove()">Kiwi</li>
     <li>Plátano</li>
   </ul>
   <p>
     <input type="text" id="newFruit">
     <button onclick="appendFruit()">Agregar al final</button>
-    <button onclick="prepentFruit()">Agregar al principio</button>
+    <button onclick="prependFruit()">Agregar al principio</button>
+    <button onclick="addFruitBeforeSelected()">Agregar delante del seleccionado</button>
   </p>
   <script>
     const fruitList = document.querySelector('ul')
@@ -31,17 +37,44 @@
 
     const inputNewFruit = document.querySelector('#newFruit')
 
-    function appendFruit () {
-      const newLi = document.createElement('li')
-      newLi.textContent = inputNewFruit.value
-      fruitList.append(newLi)
+    function setFeatures (li) {
+      li.classList.add('item')
+      li.setAttribute('ondblclick', 'this.remove()')
+      li.setAttribute('onclick', 'this.classList.toggle("selected")')
     }
 
-    function prepentFruit () {
+    function createFruit () {
       const newLi = document.createElement('li')
       newLi.textContent = inputNewFruit.value
-      fruitList.prepend(newLi)
+      setFeatures(newLi)
+      return newLi;
     }
+
+    function appendFruit () {
+      fruitList.append(createFruit())
+    }
+
+    function prependFruit () {
+      fruitList.prepend(createFruit())
+    }
+
+    function initList () {
+      document.querySelectorAll('li').forEach(li => {
+        setFeatures(li)
+      })
+    }
+
+    function addFruitBeforeSelected () {
+      const li_selected = document.querySelector('.selected')
+      if (li_selected) {
+        li_selected.before(createFruit())
+      } else {
+        appendFruit()
+      }
+      //fruitList.insertBefore(createFruit(), li_selected) *This also works
+    }
+
+    initList()
   </script>
 </body>
 </html>

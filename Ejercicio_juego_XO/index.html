@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Juego de 'Xs' y 'Os'</title>
+</head>
+<style>
+  table {
+    border-collapse: collapse;
+  }
+
+  td {
+    border: 1px solid black;
+    padding: 4px;
+  }
+</style>
+<body>
+  <table></table>
+  <p>El número de Xs es <span id="xs">--</span> y el número de Os es <span id="os">--</span></p>
+  <button onclick="updateCount()">Actualizar</button>
+  <script>
+    const nRows = 7;
+    const nColumns = 5;
+    const table = document.querySelector('table')
+    const spanX = document.querySelector('#xs')
+    const spanO = document.querySelector('#os')
+
+    for (let i = 0; i < nRows; i++) {
+       let tr = document.createElement('tr')
+       for (let j = 0; j < nColumns; j++) {
+        let td = document.createElement('td')
+        td.textContent = Math.random() < 0.5 ? "X" : "O"
+        td.setAttribute('onclick', 'change(this)')
+        tr.append(td)
+       }
+       table.append(tr)
+       checkRow(tr)
+    }
+
+    function change (td) {
+      td.textContent = td.textContent == "X" ? "O" : "X"
+      checkRow(td.parentElement)
+      checkAllColumns()
+      updateCount()
+    }
+
+    function updateCount () {
+      let cells = document.querySelectorAll('td')
+      let xs = [...cells].filter(td => td.textContent == 'X').length
+      spanX.textContent = xs
+      // spanO.textContent = nRows * nColumns - xs
+      spanO.textContent = cells.length - xs
+    }
+
+    function checkRow (row) {
+      let first = row.children[0].textContent
+      if ([...row.children].every(td => td.textContent == first)) {
+        console.log("Filas iguales")
+        row.remove()
+      }
+    }
+
+    function checkColumn (idColumn) {
+      let cells = document.querySelectorAll(`td:nth-child(${idColumn})`)
+      let first = cells[0].textContent
+      if ([...cells].every(td => td.textContent == first)) {
+        console.log("Columna igual")
+        cells.forEach(td => td.remove())
+      }
+    }
+
+    function checkAllColumns () {
+      for (let i = 1; i <= nColumns; i++) {
+        checkColumn(i)
+      }
+    }
+
+    updateCount()
+  </script>
+</body>
+</html>

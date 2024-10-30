@@ -44,15 +44,15 @@
   <h1>Factura</h1>
   <p>  
     <label for="concept">Concepto</label>
-    <input type="text" name="concept">
+    <input type="text" name="concept" id="concept">
   </p>
   <p>
     <label for="quantity">Cantidad</label>
-    <input type="number" name="quantity" id="">
+    <input type="number" name="quantity" id="quantity">
   </p>
   <p>
     <label for="price">Precio</label>
-    <input type="number" name="price" id="">€
+    <input type="number" name="price" id="price">€
   </p>
   <p>
     <button onclick="addItem()">Insertar</button>
@@ -88,8 +88,18 @@
   </table>
 
   <script>
+    const tabla = document.querySelector('tbody')
+    const inputConcept = document.querySelector('#concept')
+    const inputPrice = document.querySelector('#price')
+    const inputQuantity = document.querySelector('#quantity')
+
     function addItem () {
-      console.log('Estás añadiendo algo a la factura')
+      tabla.innerHTML = `<tr>
+        <td>${inputConcept.textContent}</td>
+        <td>${inputQuantity.textContent}</td>
+        <td>${inputPrice.textContent}</td>
+        <td>X</td>
+        </tr>`
     }
   </script>
 </body>

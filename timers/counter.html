@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contador chachi</title>
+</head>
+<body>
+  <h1>Contadores</h1>
+  <p>Contador: <span id="counter">0</span></p>
+  <button onclick="stopCounter()">Stop</button>
+  <button onclick="startCounter()">Start</button>
+  <script>
+    const counter = document.getElementById('counter')
+    let idInterval;
+
+    function increaseCounter () {
+      counter.textContent++
+    }
+
+    function stopCounter () {
+      clearInterval(idInterval)
+      idInterval = 0
+    }
+
+    function startCounter () {
+      if (idInterval == 0) {
+        idInterval = setInterval(increaseCounter, 500)
+      }
+    }
+  </script>
+</body>
+</html>

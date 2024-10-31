@@ -69,38 +69,78 @@
     <tfoot>
       <tr>
         <th colspan="3">Subtotal</th>
-        <td><span>0.00</span>€</td>
+        <td id="subtotal">0.00€</td>
         <td></td>
       </tr>
       <tr>
         <th>Tasa:</th>
-        <th class="red_th"><span>--</span>%</th>
+        <th class="red_th" id="tax">--%</th>
         <th>Impuestos</th>
-        <td><span>0.00</span>€</td>
+        <td id="taxes">0.00€</td>
         <td></td>
       </tr>
       <tr>
         <th colspan="3">TOTAL</th>
-        <th><span>0.00</span>€</th>
+        <th id="total">0.00€</th>
         <td></td>
       </tr>
     </tfoot>
   </table>
+  <p>
+    <button onclick="setTax('5%')">Tasa 5%</button>
+    <button onclick="setTax('15%')">Tasa 15%</button>
+    <button onclick="setTax('30%')">Tasa 30%</button>
+  </p>
+  <p>
+    <button onclick="calculatePrice()">Calcular</button>
+  </p>
 
   <script>
-    const tabla = document.querySelector('tbody')
+    const table = document.querySelector('tbody')
     const inputConcept = document.querySelector('#concept')
     const inputPrice = document.querySelector('#price')
     const inputQuantity = document.querySelector('#quantity')
 
+
     function addItem () {
-      tabla.innerHTML = `<tr>
-        <td>${inputConcept.textContent}</td>
-        <td>${inputQuantity.textContent}</td>
-        <td>${inputPrice.textContent}</td>
-        <td>X</td>
-        </tr>`
+      const addRow = document.createElement('tr')
+      addRow.innerHTML = `<td>${inputConcept.value}</td>
+        <td>${parseInt(inputQuantity.value)}</td>
+        <td>${parseFloat(inputPrice.value).toFixed(2)}€</td>
+        <td id="totalPrice">${parseFloat(inputPrice.value * inputQuantity.value).toFixed(2)}€</td>
+        <td onclick="removeProduct(this)">X</td>`
+
+      table.appendChild(addRow)
+      inputConcept.value = ""
+      inputQuantity.value = ""
+      inputPrice.value = ""
+      calculatePrice()
     }
+
+    function calculatePrice () {
+      const tax = document.querySelector('#tax')
+      const totalPrice = document.querySelectorAll('#totalPrice')
+      let subtotal = 0
+      totalPrice.forEach(cost => {
+        subtotal += parseFloat(cost.textContent)
+      });
+      document.querySelector('#subtotal').textContent = subtotal + "€"
+      document.querySelector('#taxes').textContent = ((parseFloat(tax.textContent) / 100) * subtotal).toFixed(2) + "€"
+      document.querySelector('#total').textContent = ((parseFloat(tax.textContent) / 100 + 1) * subtotal).toFixed(2) + "€"
+    }
+
+    function removeProduct (td) {
+      td.parentElement.remove()
+      calculatePrice()
+    }
+
+    function setTax (tax) {
+      const taxes = document.querySelector('#tax')
+      taxes.textContent = tax
+      taxes.setAttribute("id", "tax")
+      calculatePrice()
+    }
+
   </script>
 </body>
 </html>

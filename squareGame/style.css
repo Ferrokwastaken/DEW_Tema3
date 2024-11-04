@@ -1,0 +1,33 @@
+#container {
+  background-color: darkcyan;
+  padding: 5px;
+}
+
+.cell {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  background-color: goldenrod;
+  border: 1px solid black;
+  cursor: pointer;
+}
+
+.color1 {
+  background-color: darkmagenta;
+}
+
+.color2 {
+  background-color: darkorange;
+}
+
+.color3 {
+  background-color: darkturquoise;
+}
+
+.color4 {
+  background-color: crimson;
+}
+
+.color5 {
+  background-color: darkgreen;
+}
